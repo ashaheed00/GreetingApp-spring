@@ -45,4 +45,11 @@ public class GreetingController {
 	public Greeting greeting(@PathVariable long id, @RequestParam(value = "name") String name) {
 		return new Greeting(id, String.format(template, name));
 	}
+
+	@GetMapping("/find")
+	@ResponseBody
+	public Greeting findGreetingById(@RequestParam(value = "id") long id) {
+		return greetingService.getGreeting(id);
+	}
+
 }
