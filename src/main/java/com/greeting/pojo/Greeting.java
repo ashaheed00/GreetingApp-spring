@@ -1,6 +1,11 @@
 package com.greeting.pojo;
 
+import javax.persistence.Entity;
+import javax.persistence.Id;
+
+@Entity
 public class Greeting {
+	@Id
 	private long id;
 	private String message;
 

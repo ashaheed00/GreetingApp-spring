@@ -2,6 +2,7 @@ package com.greeting.controller;
 
 import java.util.concurrent.atomic.AtomicLong;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -12,6 +13,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.greeting.pojo.Greeting;
+import com.greeting.pojo.User;
+import com.greeting.service.IGreetingService;
 
 //@RestController
 //@RequestMapping("/home")
@@ -19,11 +22,15 @@ import com.greeting.pojo.Greeting;
 public class GreetingController {
 	private static final String template = "Hello, %s!";
 	private static AtomicLong counter = new AtomicLong();
+	@Autowired
+	private IGreetingService greetingService;
 
 	@GetMapping("/greeting")
 	@ResponseBody
 	public Greeting greeting(@RequestParam(value = "name", required = false, defaultValue = "World") String name) {
-		return new Greeting(counter.incrementAndGet(), String.format(template, name));
+		User user = new User();
+		user.setFirstName(name);
+		return greetingService.addGreeting(user);
 	}
 
 	@PostMapping("/post")
