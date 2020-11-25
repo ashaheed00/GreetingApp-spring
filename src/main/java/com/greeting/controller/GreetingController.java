@@ -27,12 +27,14 @@ public class GreetingController {
 	}
 
 	@PostMapping("/post")
+	@ResponseBody
 	public Greeting greeting(@RequestBody Greeting greeting) {
 		greeting.setId(counter.incrementAndGet());
 		return greeting;
 	}
 
 	@PutMapping("/put/{id}")
+	@ResponseBody
 	public Greeting greeting(@PathVariable long id, @RequestParam(value = "name") String name) {
 		return new Greeting(id, String.format(template, name));
 	}
